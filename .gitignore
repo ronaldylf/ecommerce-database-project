@@ -1,0 +1,40 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Docker
+.dockerignore
+docker-compose.override.yaml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Node (if used later)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python (if used later)
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Build artifacts
+dist/
+build/
+out/
+
+# Logs
+*.log
+logs/
+
+# Database
+*.sql.bak
