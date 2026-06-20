@@ -15,10 +15,16 @@ docker-compose up -d
 ```
 
 Isso irá:
-- Criar o container PostgreSQL (`ecommerce-db`)
+- Criar o container PostgreSQL (`ecommerce-db`) e executar as migrations
+- Criar o container Seeder (`ecommerce-seeder`) que aguarda o PostgreSQL estar pronto e executa os seeders automaticamente
 - Criar o container Adminer (`ecommerce-adminer`) - uma interface web para gerenciar o banco
-- Executar automaticamente todas as migrations na pasta `src/database/migrations/`
 - Criar um volume para persistência de dados
+
+**Fluxo:**
+1. PostgreSQL sobe → Executa migrations (V1-V8)
+2. Seeder aguarda PostgreSQL estar saudável → Executa seeders (S1-S7)
+3. Adminer sobe e acessa o banco já populado
+4. Seeder encerra após completar
 
 ### 2. Verificar Status
 
@@ -106,6 +112,18 @@ Você pode usar qualquer visualizador de banco de dados (DBeaver, pgAdmin, DataG
 
 ---
 
+## 🌱 Dados de Teste (Seeders)
+
+Os arquivos de seeder em `src/database/seeders/` são executados **automaticamente** após as migrations quando você inicia o Docker (via serviço `seeder` dedicado). Eles criam dados de teste:
+- 6 usuários (5 clientes + 1 admin)
+- 5 categorias de produtos
+- 18 produtos variados
+- Estoque para cada produto
+- 10 pedidos com diferentes status
+- Avaliações de produtos
+
+---
+
 ## 📝 Consultas SQL
 
 Todas as consultas obrigatórias estão em `src/database/queries/`:
@@ -143,6 +161,15 @@ ecommerce/
     │   ├── V7__create_reviews_table.sql
     │   └── V8__create_functions_and_triggers.sql
     │
+    ├── seeders/                 ← 7 seeders SQL para dados de teste
+    │   ├── S1__seed_users.sql
+    │   ├── S2__seed_categories.sql
+    │   ├── S3__seed_products.sql
+    │   ├── S4__seed_stock.sql
+    │   ├── S5__seed_orders.sql
+    │   ├── S6__seed_order_items.sql
+    │   └── S7__seed_reviews.sql
+    │
     └── queries/                 ← 5 consultas SQL obrigatórias
         ├── Q1__funcao_agregada.sql
         ├── Q2__having.sql
@@ -158,7 +185,7 @@ ecommerce/
 - **Modelo Conceitual**: `specs/01_modelo_conceitual.md` - Diagrama ER e entidades
 - **Modelo Lógico**: `specs/02_modelo_logico.md` - Tabelas, atributos e relacionamentos
 - **Modelo Físico**: `specs/03_modelo_fisico.md` - SQL, tipos de dados, constraints, triggers e migrations
-- **Consultas SQL**: `src/database/queries/` - Todas as queries obrigatórias
+- **Consultas SQL**: `src/database/queries/` - Todas as queries obrigatórias (Q1 a Q5)
 
 ---
 

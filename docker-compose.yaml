@@ -19,6 +19,25 @@ services:
       timeout: 5s
       retries: 5
 
+  seeder:
+    image: postgres:15-alpine
+    container_name: ecommerce-seeder
+    environment:
+      PGPASSWORD: password
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./src/database/seeders:/seeders
+    command: >
+      sh -c "
+      for file in /seeders/*.sql; do
+        psql -h postgres -U user -d ecommerce_db -f \"$$file\" || exit 1;
+      done
+      "
+    networks:
+      - ecommerce-network
+
   adminer:
     image: adminer:latest
     container_name: ecommerce-adminer
