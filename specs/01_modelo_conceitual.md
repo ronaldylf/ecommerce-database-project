@@ -1,5 +1,5 @@
 # Modelo Conceitual - Sistema de E-commerce
-
+[Diagrama Conceitual](../modelos/modeloconceitual.png)
 ## 1. Definição do Problema
 
 Um sistema de gerenciamento de e-commerce que permite:

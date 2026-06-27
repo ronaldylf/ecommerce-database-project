@@ -1,5 +1,5 @@
 # Modelo Físico - Sistema de E-commerce (PostgreSQL)
-
+[Diagrama Físico](../modelos/modelofisico.png)
 ## 1. Tipos de Dados
 
 | Tipo Lógico | Tipo Físico PostgreSQL | Uso |
