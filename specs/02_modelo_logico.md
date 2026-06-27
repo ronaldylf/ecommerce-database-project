@@ -1,5 +1,5 @@
 # Modelo Lógico - Sistema de E-commerce
-
+[Diagrama Lógico](../modelos/modelologico.png)
 ## 1. Estrutura das Tabelas
 
 ```
